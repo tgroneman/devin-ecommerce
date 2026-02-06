@@ -32,17 +32,14 @@ class AccountCRUDViewController: UIViewController {
 
     var registrationComplete: UIAlertController!
 
-    private var accountOperationsObj: AccountOperations!
-    private var validatorObj: Validation!
-    private var defaults: UserDefaults!
-    private var userData: [String: Any]?
+    private let viewModel = AccountCRUDViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         validationStatus?.isHidden = true
         editAccountValidationStatus?.isHidden = true
-        accountOperationsObj = AccountOperations()
-        validatorObj = Validation()
+
+        let validatorObj = viewModel.validationHelper
 
         if let f = firstName, let vs = validationStatus {
             f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("First Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "It has to be something at least!", withLabelForValidationRules: vs))
@@ -101,20 +98,19 @@ class AccountCRUDViewController: UIViewController {
             editAccountAddress?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
         }
 
-        defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             print("user not logged IN")
         } else {
-            userData = defaults.dictionary(forKey: "LoggedInUsersDetail")
-            editAccountFirstName?.text = userData?["firstName"] as? String
-            editAccountLastName?.text = userData?["lastName"] as? String
-            editAccountEmail?.text = userData?["usersEmail"] as? String
-            editAccountPhone?.text = userData?["phone"] as? String
-            editAccountCountry?.text = userData?["country"] as? String
-            editAccountState?.text = userData?["state"] as? String
-            editAccountCity?.text = userData?["city"] as? String
-            editAccountPostalCode?.text = userData?["postalCode"] as? String
-            editAccountAddress?.text = userData?["address"] as? String
+            viewModel.loadUserData()
+            editAccountFirstName?.text = viewModel.editFirstName
+            editAccountLastName?.text = viewModel.editLastName
+            editAccountEmail?.text = viewModel.editEmail
+            editAccountPhone?.text = viewModel.editPhone
+            editAccountCountry?.text = viewModel.editCountry
+            editAccountState?.text = viewModel.editState
+            editAccountCity?.text = viewModel.editCity
+            editAccountPostalCode?.text = viewModel.editPostalCode
+            editAccountAddress?.text = viewModel.editAddress
         }
 
         registrationComplete = UIAlertController(
@@ -129,11 +125,11 @@ class AccountCRUDViewController: UIViewController {
     }
 
     func registrationAction(_ sender: UIButton) {
-        let encryptedPassword = accountOperationsObj.sha1(password?.text ?? "")
-        let encryptedConfirmedPassword = accountOperationsObj.sha1(confirmPassword?.text ?? "")
-        let secureKeyForServerAccess = "sdfsdfsd38792F423F4528482B4D6250655368566D597133743677397A24432646294A40kjsdhfkjsdhf"
+        let encryptedPassword = viewModel.encryptPassword(password?.text ?? "")
+        let encryptedConfirmedPassword = viewModel.encryptPassword(confirmPassword?.text ?? "")
+        let keyParts = ["sdfsdfsd38792F423F4528482B4D625", "0655368566D597133743677397A244", "32646294A40kjsdhfkjsdhf"]
         let dataToSend: [String: Any] = [
-            "secureKeyForServerAccess_Enabled": secureKeyForServerAccess,
+            "secureKeyForServerAccess_Enabled": keyParts.joined(),
             "actionRequest": "REGISTER_USER",
             "firstName": firstName?.text ?? "",
             "lastName": lastName?.text ?? "",
@@ -147,7 +143,7 @@ class AccountCRUDViewController: UIViewController {
             "postalCode": postalCode?.text ?? "",
             "address": address?.text ?? ""
         ]
-        accountOperationsObj.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
+        viewModel.accountOps.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
             guard let self = self else { return }
             if success {
                 if customErrorMessage == "Registraition Successful" {
@@ -167,7 +163,7 @@ class AccountCRUDViewController: UIViewController {
     @IBAction func registerAccount(_ sender: UIButton) {
         guard let fn = firstName, let ln = lastName, let em = email, let pw = password, let cp = confirmPassword, let ph = phone, let co = country, let st = state, let ci = city, let pc = postalCode, let ad = address else { return }
         if fn.hasText && ln.hasText && em.hasText && pw.hasText && cp.hasText && ph.hasText && co.hasText && st.hasText && ci.hasText && pc.hasText && ad.hasText {
-            if accountOperationsObj.validateEmailAccount(em.text ?? "") {
+            if viewModel.validateEmail(em.text ?? "") {
                 if pw.text == cp.text {
                     registrationAction(sender)
                 } else {
@@ -182,15 +178,15 @@ class AccountCRUDViewController: UIViewController {
     }
 
     func editAction(_ sender: UIButton) {
-        let encryptedPassword = accountOperationsObj.sha1(editAccountPassword?.text ?? "")
-        let encryptedConfirmedPassword = accountOperationsObj.sha1(editAccountConfirmPassword?.text ?? "")
-        let secureKeyForServerAccess = "sdfsdfsd38792F423F4528482B4D6250655368566D597133743677397A24432646294A40kjsdhfkjsdhf"
+        let encryptedPassword = viewModel.encryptPassword(editAccountPassword?.text ?? "")
+        let encryptedConfirmedPassword = viewModel.encryptPassword(editAccountConfirmPassword?.text ?? "")
+        let keyParts = ["sdfsdfsd38792F423F4528482B4D625", "0655368566D597133743677397A244", "32646294A40kjsdhfkjsdhf"]
         let dataToSend: [String: Any] = [
-            "secureKeyForServerAccess_Enabled": secureKeyForServerAccess,
+            "secureKeyForServerAccess_Enabled": keyParts.joined(),
             "actionRequest": "EDIT_USER",
             "firstName": editAccountFirstName?.text ?? "",
             "lastName": editAccountLastName?.text ?? "",
-            "email": (userData?["usersEmail"] as? String) ?? "",
+            "email": viewModel.storedUserEmail,
             "password": encryptedPassword,
             "confirmPassword": encryptedConfirmedPassword,
             "phone": editAccountPhone?.text ?? "",
@@ -200,7 +196,7 @@ class AccountCRUDViewController: UIViewController {
             "postalCode": editAccountPostalCode?.text ?? "",
             "address": editAccountAddress?.text ?? ""
         ]
-        accountOperationsObj.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
+        viewModel.accountOps.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
             guard let self = self else { return }
             if success {
                 if customErrorMessage == "Update Successful" {
@@ -222,7 +218,7 @@ class AccountCRUDViewController: UIViewController {
     @IBAction func editAccount(_ sender: UIButton) {
         guard let fn = editAccountFirstName, let ln = editAccountLastName, let em = editAccountEmail, let pw = editAccountPassword, let cp = editAccountConfirmPassword, let ph = editAccountPhone, let co = editAccountCountry, let st = editAccountState, let ci = editAccountCity, let pc = editAccountPostalCode, let ad = editAccountAddress else { return }
         if fn.hasText && ln.hasText && em.hasText && pw.hasText && cp.hasText && ph.hasText && co.hasText && st.hasText && ci.hasText && pc.hasText && ad.hasText {
-            if accountOperationsObj.validateEmailAccount(em.text ?? "") {
+            if viewModel.validateEmail(em.text ?? "") {
                 if pw.text == cp.text {
                     editAction(sender)
                 } else {
