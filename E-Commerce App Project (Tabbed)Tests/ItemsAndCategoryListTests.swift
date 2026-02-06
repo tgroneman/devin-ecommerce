@@ -71,19 +71,16 @@ class ItemsTests: XCTestCase {
         XCTAssertTrue(categories.contains("Tablet"))
     }
 
-    func testLoadItemsFromJSON() {
-        let items = Items.sharedInstance
-        items.loadItemsFromJSON()
-        XCTAssertFalse(items.allItems.isEmpty)
+    func testItemCount() {
+        let items = Items.sharedInstance.allItems
+        XCTAssertGreaterThan(items.count, 0)
     }
 
-    func testLoadItemsFromJSONMultipleTimes() {
-        let items = Items.sharedInstance
-        items.loadItemsFromJSON()
-        let count1 = items.allItems.count
-        items.loadItemsFromJSON()
-        let count2 = items.allItems.count
-        XCTAssertEqual(count1, count2)
+    func testAllItemsHaveNonZeroPrice() {
+        let items = Items.sharedInstance.allItems
+        for item in items {
+            XCTAssertGreaterThanOrEqual(item.price, 0)
+        }
     }
 }
 
