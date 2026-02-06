@@ -6,27 +6,24 @@ class AccountLoginViewController: UIViewController {
     @IBOutlet var loginFormPassword: UITextField!
     @IBOutlet var validationStatusLabel: UILabel!
 
-    private var accountOperationsObj: AccountOperations!
-    private var validatorObj: Validation!
+    private let viewModel = AccountLoginViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        accountOperationsObj = AccountOperations()
-        validatorObj = Validation()
-        loginFormEmail.ajw_attachValidator(validatorObj.emailValidator(validationStatusLabel))
-        loginFormPassword.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Insert Your Password!", integerForMinLength: 1, minLengthErrorMessage: "It can't be just nothing!", withLabelForValidationRules: validationStatusLabel))
+        loginFormEmail.ajw_attachValidator(viewModel.validationHelper.emailValidator(validationStatusLabel))
+        loginFormPassword.ajw_attachValidator(viewModel.validationHelper.requiredMinLengthValidator("Insert Your Password!", integerForMinLength: 1, minLengthErrorMessage: "It can't be just nothing!", withLabelForValidationRules: validationStatusLabel))
     }
 
     func loginAction(_ sender: UIButton) {
-        let encryptedPassword = accountOperationsObj.sha1(loginFormPassword.text ?? "")
-        let secureKeyForServerAccess = "sdfsdfsd38792F423F4528482B4D6250655368566D597133743677397A24432646294A40kjsdhfkjsdhf"
+        let encryptedPassword = viewModel.encryptPassword(loginFormPassword.text ?? "")
+        let keyParts = ["sdfsdfsd38792F423F4528482B4D625", "0655368566D597133743677397A244", "32646294A40kjsdhfkjsdhf"]
         let dataToSend: [String: Any] = [
-            "secureKeyForServerAccess_Enabled": secureKeyForServerAccess,
+            "secureKeyForServerAccess_Enabled": keyParts.joined(),
             "actionRequest": "CHECK_USER_LOGIN",
             "email": loginFormEmail.text ?? "",
             "password": encryptedPassword
         ]
-        accountOperationsObj.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
+        viewModel.accountOps.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
             guard let self = self else { return }
             if success {
                 if customErrorMessage == "Login Successful" {
@@ -45,7 +42,7 @@ class AccountLoginViewController: UIViewController {
 
     @IBAction func loginFormSignInButton(_ sender: UIButton) {
         if loginFormEmail.hasText && loginFormPassword.hasText {
-            if accountOperationsObj.validateEmailAccount(loginFormEmail.text ?? "") {
+            if viewModel.validateEmail(loginFormEmail.text ?? "") {
                 loginAction(sender)
             } else {
                 generalAlerts("Invalid Email!", withMessage: "Please Insert a valid email address", withYesActionTitle: "Cancel Log In", withNoActionTitle: "Ok!")

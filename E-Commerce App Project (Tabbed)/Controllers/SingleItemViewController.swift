@@ -22,14 +22,12 @@ class SingleItemViewController: ViewController {
 
     var itemAlreadyAddedAlert: UIAlertController!
     var itemObjectReceived: Item!
-    var theItemObject: Item!
 
-    private var checkoutCart: ShoppingCart!
+    private let viewModel = SingleItemViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkoutCart = ShoppingCart.sharedInstance
-        theItemObject = itemObjectReceived
+        viewModel.configure(with: itemObjectReceived)
 
         if let imageData = setItemImageData {
             itemImage.image = UIImage(data: imageData)
@@ -37,11 +35,11 @@ class SingleItemViewController: ViewController {
         itemName.text = setItemName
         itemCategory.text = setItemCategory
         itemID.text = setItemID?.stringValue
-        itemPrice.text = showPrice(setItemPrice)
+        itemPrice.text = viewModel.formatPrice(setItemPrice)
         itemBrand.text = setItemBrand
         itemQuality.text = setItemQuality
 
-        addToCartStatusoutlet.isSelected = checkoutCart.containsItem(theItemObject)
+        addToCartStatusoutlet.isSelected = viewModel.isInCart
 
         itemAlreadyAddedAlert = UIAlertController(
             title: "Already Added To The Cart",
@@ -52,7 +50,7 @@ class SingleItemViewController: ViewController {
         let yesButton = UIAlertAction(title: "Got it!", style: .default, handler: nil)
         let noButton = UIAlertAction(title: "Add To Cart Again!", style: .default) { [weak self] _ in
             guard let self = self else { return }
-            ShoppingCart.sharedInstance.addItem(self.theItemObject)
+            self.viewModel.addToCart()
             self.addToCartStatusoutlet.isSelected = true
         }
 
@@ -62,7 +60,7 @@ class SingleItemViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addToCartStatusoutlet.isSelected = checkoutCart.containsItem(theItemObject)
+        addToCartStatusoutlet.isSelected = viewModel.isInCart
         removeFromCartOutlet.isHidden = !addToCartStatusoutlet.isSelected
     }
 
@@ -79,7 +77,7 @@ class SingleItemViewController: ViewController {
 
     @IBAction func addToCartButton(_ sender: UIButton) {
         if !addToCartStatusoutlet.isSelected {
-            checkoutCart.addItem(theItemObject)
+            viewModel.addToCart()
             addToCartStatusoutlet.isSelected = true
             removeFromCartOutlet.isHidden = false
             sender.setTitle("Again Add To Cart", for: .normal)
@@ -95,15 +93,10 @@ class SingleItemViewController: ViewController {
     }
 
     @IBAction func removeFromCartButton(_ sender: UIButton) {
-        checkoutCart.removeItem(theItemObject)
+        viewModel.removeFromCart()
         addToCartStatusoutlet.isSelected = false
         sender.setTitle("Add To Cart", for: .normal)
         sender.setImage(UIImage(named: "addToCart-icon-40.png"), for: .normal)
         sender.backgroundColor = .blue
-    }
-
-    func showPrice(_ price: NSNumber?) -> String {
-        guard let price = price else { return "$0" }
-        return "$\(price)"
     }
 }

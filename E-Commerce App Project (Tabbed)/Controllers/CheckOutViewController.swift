@@ -3,7 +3,7 @@ import MessageUI
 
 class CheckOutViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-    var checkoutCart: ShoppingCart!
+    private let viewModel = CheckOutViewModel()
 
     @IBOutlet var checkOutTotalAmount: UILabel!
     @IBOutlet var firstName: UILabel!
@@ -19,18 +19,10 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
     @IBOutlet var rocketOutlet: UIButton!
     @IBOutlet var cashOnDeliveryOutlet: UIButton!
 
-    var bkashChecked: Bool = false
-    var rocketChecked: Bool = false
-    var cashOnDeliveryChecked: Bool = false
-
-    private var defaults: UserDefaults!
-    private var userData: [String: Any]?
-    private var PDFFilePath: String = ""
     private var paymentAlert: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkoutCart = ShoppingCart.sharedInstance
 
         paymentAlert = UIAlertController(
             title: "Payment Method Not Selected",
@@ -40,13 +32,7 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
         let yesAction = UIAlertAction(title: "OK!", style: .default, handler: nil)
         paymentAlert.addAction(yesAction)
 
-        bkashChecked = false
-        rocketChecked = false
-        cashOnDeliveryChecked = false
-
-        defaults = UserDefaults.standard
-
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             checkOutTotalAmount.text = ""
             firstName.text = ""
             lastName.text = ""
@@ -64,131 +50,43 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
             bkashOutlet.isHidden = false
             rocketOutlet.isHidden = false
             cashOnDeliveryOutlet.isHidden = false
-            userData = defaults.dictionary(forKey: "LoggedInUsersDetail")
+            viewModel.loadUserData()
 
-            checkOutTotalAmount.text = "$\(defaults.value(forKey: "cartTotalAmount") ?? "")"
-            firstName.text = userData?["firstName"] as? String
-            lastName.text = userData?["lastName"] as? String
-            email.text = userData?["usersEmail"] as? String
-            phone.text = userData?["phone"] as? String
-            country.text = userData?["country"] as? String
-            city.text = userData?["city"] as? String
-            State.text = userData?["state"] as? String
-            postalCode.text = userData?["postalCode"] as? String
-            address.text = userData?["address"] as? String
+            checkOutTotalAmount.text = viewModel.formattedTotal
+            firstName.text = viewModel.userFirstName
+            lastName.text = viewModel.userLastName
+            email.text = viewModel.userEmail
+            phone.text = viewModel.userPhone
+            country.text = viewModel.userCountry
+            city.text = viewModel.userCity
+            State.text = viewModel.userState
+            postalCode.text = viewModel.userPostalCode
+            address.text = viewModel.userAddress
         }
     }
 
     @IBAction func bkashAction(_ sender: Any) {
-        if !bkashChecked {
-            bkashOutlet.setImage(UIImage(named: "checkboxChecked-icon-40.png"), for: .normal)
-            rocketOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            bkashChecked = true
-            rocketChecked = false
-            cashOnDeliveryChecked = false
-            defaults.set("Bkash", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        } else {
-            bkashOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            rocketOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            bkashChecked = false
-            rocketChecked = false
-            cashOnDeliveryChecked = false
-            defaults.set("", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        }
+        viewModel.toggleBkash()
+        updatePaymentCheckboxes()
     }
 
     @IBAction func rocketAction(_ sender: Any) {
-        if !rocketChecked {
-            rocketOutlet.setImage(UIImage(named: "checkboxChecked-icon-40.png"), for: .normal)
-            bkashOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            rocketChecked = true
-            bkashChecked = false
-            cashOnDeliveryChecked = false
-            defaults.set("Rocket", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        } else {
-            bkashOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            rocketOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            bkashChecked = false
-            rocketChecked = false
-            cashOnDeliveryChecked = false
-            defaults.set("", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        }
+        viewModel.toggleRocket()
+        updatePaymentCheckboxes()
     }
 
     @IBAction func cashOnDeliveryAction(_ sender: Any) {
-        if !cashOnDeliveryChecked {
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxChecked-icon-40.png"), for: .normal)
-            rocketOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            bkashOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryChecked = true
-            rocketChecked = false
-            bkashChecked = false
-            defaults.set("Cash On Delivery", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        } else {
-            bkashOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            rocketOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            cashOnDeliveryOutlet.setImage(UIImage(named: "checkboxUnchecked-icon-40.png"), for: .normal)
-            bkashChecked = false
-            rocketChecked = false
-            cashOnDeliveryChecked = false
-            defaults.set("", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-        }
+        viewModel.toggleCashOnDelivery()
+        updatePaymentCheckboxes()
     }
 
-    func getHTMLString() -> String {
-        let pdfLogoUrl = "https://apiforios.appendtech.com/logo.png"
-
-        guard let filePath = Bundle.main.path(forResource: "invoice", ofType: "html"),
-              let singleItemFilePath = Bundle.main.path(forResource: "single_item", ofType: "html") else {
-            return ""
-        }
-
-        var strHTML = (try? String(contentsOfFile: filePath, encoding: .utf8)) ?? ""
-        let itemsInCartArray = checkoutCart.itemsInCart()
-
-        var allItemsHTMLArray: [String] = []
-        for item in itemsInCartArray {
-            var srtItemHTML = (try? String(contentsOfFile: singleItemFilePath, encoding: .utf8)) ?? ""
-            srtItemHTML = srtItemHTML.replacingOccurrences(of: "#productName", with: item.itemName)
-            srtItemHTML = srtItemHTML.replacingOccurrences(of: "#quantity", with: "\(NSNumber(value: item.cartAddedQuantity))")
-            srtItemHTML = srtItemHTML.replacingOccurrences(of: "#price", with: "\(NSNumber(value: item.price))")
-            allItemsHTMLArray.append(srtItemHTML)
-        }
-        let allItemsHTMLString = allItemsHTMLArray.joined(separator: "\n")
-
-        strHTML = strHTML.replacingOccurrences(of: "#ITEMS#", with: allItemsHTMLString)
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let dateString = dateFormatter.string(from: Date())
-
-        let ownerInfo = "ICTcom<br>An E-commerce App Project<br>Developed BY: Rony Banik (Arko)<br>"
-        strHTML = strHTML.replacingOccurrences(of: "#ownerInfo", with: ownerInfo)
-        strHTML = strHTML.replacingOccurrences(of: "#appIcon", with: pdfLogoUrl)
-        strHTML = strHTML.replacingOccurrences(of: "#invoiceDate", with: dateString)
-        strHTML = strHTML.replacingOccurrences(of: "#cartTotal", with: (defaults.value(forKey: "cartTotalAmount") as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#firstName", with: (userData?["firstName"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#lastName", with: (userData?["lastName"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#email", with: (userData?["usersEmail"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#phone", with: (userData?["phone"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#country", with: (userData?["country"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#city", with: (userData?["city"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#state", with: (userData?["state"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#postalCode", with: (userData?["postalCode"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#address", with: (userData?["address"] as? String) ?? "")
-        strHTML = strHTML.replacingOccurrences(of: "#paymentMethod", with: (defaults.value(forKey: "paymentMethodUsed") as? String) ?? "")
-
-        return strHTML
+    private func updatePaymentCheckboxes() {
+        let bkashImage = viewModel.bkashChecked ? "checkboxChecked-icon-40.png" : "checkboxUnchecked-icon-40.png"
+        let rocketImage = viewModel.rocketChecked ? "checkboxChecked-icon-40.png" : "checkboxUnchecked-icon-40.png"
+        let codImage = viewModel.cashOnDeliveryChecked ? "checkboxChecked-icon-40.png" : "checkboxUnchecked-icon-40.png"
+        bkashOutlet.setImage(UIImage(named: bkashImage), for: .normal)
+        rocketOutlet.setImage(UIImage(named: rocketImage), for: .normal)
+        cashOnDeliveryOutlet.setImage(UIImage(named: codImage), for: .normal)
     }
 
     func savePDF() {
@@ -197,7 +95,7 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
         let printPageRenderer = UIPrintPageRenderer()
         printPageRenderer.setValue(NSValue(cgRect: pageFrame), forKey: "paperRect")
         printPageRenderer.setValue(NSValue(cgRect: pageFrame), forKey: "printableRect")
-        let printFormatter = UIMarkupTextPrintFormatter(markupText: getHTMLString())
+        let printFormatter = UIMarkupTextPrintFormatter(markupText: viewModel.getHTMLString())
         printPageRenderer.addPrintFormatter(printFormatter, startingAtPageAt: 0)
 
         let pdfData = NSMutableData()
@@ -206,23 +104,19 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
         printPageRenderer.drawPage(at: 0, in: UIGraphicsGetPDFContextBounds())
         UIGraphicsEndPDFContext()
 
-        PDFFilePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        PDFFilePath = PDFFilePath + "/invoiceFromICTcom.pdf"
-        pdfData.write(toFile: PDFFilePath, atomically: true)
-        defaults.set(PDFFilePath, forKey: "pdfFilePath")
-        defaults.synchronize()
+        var pdfPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        pdfPath = pdfPath + "/invoiceFromICTcom.pdf"
+        pdfData.write(toFile: pdfPath, atomically: true)
+        viewModel.setPDFFilePath(pdfPath)
     }
 
     @IBAction func finishCheckOutButton(_ sender: Any) {
-        if (defaults.value(forKey: "paymentMethodUsed") as? String) == "" {
+        if !viewModel.isPaymentMethodSelected {
             present(paymentAlert, animated: true, completion: nil)
         } else {
             savePDF()
             sendMailWithPDF()
-            defaults.set("", forKey: "cartTotalAmount")
-            defaults.set("", forKey: "paymentMethodUsed")
-            defaults.synchronize()
-            checkoutCart.clearCart()
+            viewModel.finishCheckout()
             performSegue(withIdentifier: "checkoutToThankyouSegue", sender: nil)
         }
     }
@@ -233,10 +127,11 @@ class CheckOutViewController: UIViewController, MFMailComposeViewControllerDeleg
             saleMail.mailComposeDelegate = self
             saleMail.setSubject("Invoice From ICTcom App")
             saleMail.setMessageBody("Thanks so much for your purchase.<br>Please find the attached invoice.<br>Thanks From ICTcom", isHTML: true)
-            if let contentsOfFile = try? Data(contentsOf: URL(fileURLWithPath: PDFFilePath)) {
+            if let contentsOfFile = try? Data(contentsOf: URL(fileURLWithPath: viewModel.pdfFilePath)) {
                 saleMail.addAttachmentData(contentsOfFile, mimeType: "application/pdf", fileName: "Invoice")
             }
-            if let userEmail = userData?["usersEmail"] as? String {
+            let userEmail = viewModel.userEmail
+            if !userEmail.isEmpty {
                 saleMail.setToRecipients([userEmail])
             }
             present(saleMail, animated: true, completion: nil)

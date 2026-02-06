@@ -27,16 +27,12 @@ class AccountViewController: UIViewController {
 
     var loggedOutAlert: UIAlertController!
 
-    private var accountOperationsObj: AccountOperations!
-    private var defaults: UserDefaults!
-    private var userData: [String: Any]?
+    private let viewModel = AccountViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        accountOperationsObj = AccountOperations()
-        defaults = UserDefaults.standard
 
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             setLoggedOutState()
         } else {
             setLoggedInState()
@@ -49,11 +45,7 @@ class AccountViewController: UIViewController {
         )
 
         let noButton = UIAlertAction(title: "Yes, Log Out!", style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.defaults.set(false, forKey: "SeesionUserLoggedIN")
-            self.defaults.set("", forKey: "SessionLoggedInuserEmail")
-            self.defaults.set("", forKey: "LoggedInUsersDetail")
-            self.defaults.synchronize()
+            self?.viewModel.logout()
         }
         let yesButton = UIAlertAction(title: "Log Back In!", style: .default, handler: nil)
 
@@ -64,7 +56,7 @@ class AccountViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.reloadInputViews()
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             setLoggedOutState()
         } else {
             setLoggedInStateAppeared()
@@ -107,77 +99,64 @@ class AccountViewController: UIViewController {
     }
 
     private func setLoggedInState() {
-        firstName.isHidden = false
-        lastName.isHidden = false
-        email.isHidden = false
-        phone.isHidden = false
-        country.isHidden = false
-        state.isHidden = false
-        city.isHidden = false
-        postalCode.isHidden = false
-        address.isHidden = false
-        firstNameOutlet.isHidden = false
-        lastNameOutlet.isHidden = false
-        emailOutlet.isHidden = false
-        phoneOutlet.isHidden = false
-        countryOutlet.isHidden = false
-        stateOutlet.isHidden = false
-        cityOutlet.isHidden = false
-        postalCodeOutlet.isHidden = false
-        addressOutlet.isHidden = false
+        setFieldsVisible(true)
         goToLoginButtonOutlet.isHidden = true
         userHistoryOutlet.isEnabled = true
         userHistoryOutlet.tintColor = UIColor(named: "Cornflower Blue")
         userLogOutOutlet.isEnabled = true
         userLogOutOutlet.tintColor = UIColor(named: "Cornflower Blue")
 
-        userData = defaults.dictionary(forKey: "LoggedInUsersDetail")
+        viewModel.loadUserData()
         populateUserData()
     }
 
     private func setLoggedInStateAppeared() {
-        firstName.isHidden = false
-        lastName.isHidden = false
-        email.isHidden = false
-        phone.isHidden = false
-        country.isHidden = false
-        state.isHidden = false
-        city.isHidden = false
-        postalCode.isHidden = false
-        address.isHidden = false
-        firstNameOutlet.isHidden = false
-        lastNameOutlet.isHidden = false
-        emailOutlet.isHidden = false
-        phoneOutlet.isHidden = false
-        countryOutlet.isHidden = false
-        stateOutlet.isHidden = false
-        cityOutlet.isHidden = false
-        postalCodeOutlet.isHidden = false
-        addressOutlet.isHidden = false
+        setFieldsVisible(true)
         goToLoginButtonOutlet.isHidden = true
         userHistoryOutlet.isEnabled = false
         userHistoryOutlet.tintColor = .clear
         userLogOutOutlet.isEnabled = true
         userLogOutOutlet.tintColor = UIColor(named: "Cornflower Blue")
 
-        userData = defaults.dictionary(forKey: "LoggedInUsersDetail")
+        viewModel.loadUserData()
         populateUserData()
     }
 
+    private func setFieldsVisible(_ visible: Bool) {
+        firstName.isHidden = !visible
+        lastName.isHidden = !visible
+        email.isHidden = !visible
+        phone.isHidden = !visible
+        country.isHidden = !visible
+        state.isHidden = !visible
+        city.isHidden = !visible
+        postalCode.isHidden = !visible
+        address.isHidden = !visible
+        firstNameOutlet.isHidden = !visible
+        lastNameOutlet.isHidden = !visible
+        emailOutlet.isHidden = !visible
+        phoneOutlet.isHidden = !visible
+        countryOutlet.isHidden = !visible
+        stateOutlet.isHidden = !visible
+        cityOutlet.isHidden = !visible
+        postalCodeOutlet.isHidden = !visible
+        addressOutlet.isHidden = !visible
+    }
+
     private func populateUserData() {
-        firstName.text = userData?["firstName"] as? String
-        lastName.text = userData?["lastName"] as? String
-        email.text = userData?["usersEmail"] as? String
-        phone.text = userData?["phone"] as? String
-        country.text = userData?["country"] as? String
-        state.text = userData?["state"] as? String
-        city.text = userData?["city"] as? String
-        postalCode.text = userData?["postalCode"] as? String
-        address.text = userData?["address"] as? String
+        firstName.text = viewModel.userFirstName
+        lastName.text = viewModel.userLastName
+        email.text = viewModel.userEmail
+        phone.text = viewModel.userPhone
+        country.text = viewModel.userCountry
+        state.text = viewModel.userState
+        city.text = viewModel.userCity
+        postalCode.text = viewModel.userPostalCode
+        address.text = viewModel.userAddress
     }
 
     @IBAction func theEditButtonForLoginOrEdit(_ sender: Any) {
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             performSegue(withIdentifier: "loginAccountSegue", sender: nil)
         } else {
             performSegue(withIdentifier: "editAccountSegue", sender: nil)
