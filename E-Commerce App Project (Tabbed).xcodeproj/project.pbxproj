@@ -87,7 +87,7 @@
 		E2000000000000000000000B /* AccountViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000000000000000000000B /* AccountViewModelTests.swift */; };
 		E2000000000000000000000C /* CategoryItemsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000000000000000000000C /* CategoryItemsViewModelTests.swift */; };
 		E2000000000000000000000D /* ThankYouViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000000000000000000000D /* ThankYouViewModelTests.swift */; };
-		D30000000000000000000001/* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000001 /* HomeViewModel.swift */; };
+		D30000000000000000000001 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000001 /* HomeViewModel.swift */; };
 		D30000000000000000000002 /* SaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000002 /* SaleViewModel.swift */; };
 		D30000000000000000000003 /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000003 /* CartViewModel.swift */; };
 		D30000000000000000000004 /* CategoryItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000004 /* CategoryItemsViewModel.swift */; };
@@ -203,7 +203,7 @@
 		E1000000000000000000000B /* AccountViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelTests.swift; sourceTree = "<group>"; };
 		E1000000000000000000000C /* CategoryItemsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemsViewModelTests.swift; sourceTree = "<group>"; };
 		E1000000000000000000000D /* ThankYouViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouViewModelTests.swift; sourceTree = "<group>"; };
-		D40000000000000000000001/* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000001 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D40000000000000000000002 /* SaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleViewModel.swift; sourceTree = "<group>"; };
 		D40000000000000000000003 /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		D40000000000000000000004 /* CategoryItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemsViewModel.swift; sourceTree = "<group>"; };
