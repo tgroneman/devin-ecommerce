@@ -164,4 +164,45 @@ class HomeViewModelTests: XCTestCase {
         let result = viewModel.formatPrice(100)
         XCTAssertEqual(result, "$100")
     }
+
+    func testItemForTag0() {
+        viewModel.loadCategories()
+        if viewModel.numberOfItems(forCollectionViewTag: 0) > 0 {
+            let item = viewModel.item(forCollectionViewTag: 0, at: 0)
+            XCTAssertNotNil(item)
+            XCTAssertFalse(item.itemName.isEmpty)
+        }
+    }
+
+    func testItemForTag1() {
+        viewModel.loadCategories()
+        if viewModel.numberOfItems(forCollectionViewTag: 1) > 0 {
+            let item = viewModel.item(forCollectionViewTag: 1, at: 0)
+            XCTAssertNotNil(item)
+        }
+    }
+
+    func testItemForTag2() {
+        viewModel.loadCategories()
+        if viewModel.numberOfItems(forCollectionViewTag: 2) > 0 {
+            let item = viewModel.item(forCollectionViewTag: 2, at: 0)
+            XCTAssertNotNil(item)
+        }
+    }
+
+    func testItemForTag3() {
+        viewModel.loadCategories()
+        if viewModel.numberOfItems(forCollectionViewTag: 3) > 0 {
+            let item = viewModel.item(forCollectionViewTag: 3, at: 0)
+            XCTAssertNotNil(item)
+        }
+    }
+
+    func testItemForDefaultTag() {
+        viewModel.loadCategories()
+        if viewModel.numberOfItems(forCollectionViewTag: 4) > 0 {
+            let item = viewModel.item(forCollectionViewTag: 4, at: 0)
+            XCTAssertNotNil(item)
+        }
+    }
 }

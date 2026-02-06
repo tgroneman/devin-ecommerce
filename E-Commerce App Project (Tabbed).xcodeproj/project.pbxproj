@@ -97,6 +97,13 @@
 		D30000000000000000000008 /* AccountCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000008 /* AccountCRUDViewModel.swift */; };
 		D30000000000000000000009 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000009 /* AccountViewModel.swift */; };
 		D3000000000000000000000A /* ThankYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4000000000000000000000A /* ThankYouViewModel.swift */; };
+		F20000000000000000000001 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000001 /* ValidationTests.swift */; };
+		F20000000000000000000002 /* AJWValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000002 /* AJWValidatorTests.swift */; };
+		F20000000000000000000003 /* TAPageControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000003 /* TAPageControlTests.swift */; };
+		F20000000000000000000004 /* UIViewValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000004 /* UIViewValidatorTests.swift */; };
+		F20000000000000000000005 /* ControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000005 /* ControllerTests.swift */; };
+		F20000000000000000000006 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000006 /* AppDelegateTests.swift */; };
+		F20000000000000000000007 /* ItemsAndCategoryListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000007 /* ItemsAndCategoryListTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +220,13 @@
 		D40000000000000000000008 /* AccountCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCRUDViewModel.swift; sourceTree = "<group>"; };
 		D40000000000000000000009 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D4000000000000000000000A /* ThankYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouViewModel.swift; sourceTree = "<group>"; };
+		F10000000000000000000001 /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000002 /* AJWValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJWValidatorTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000003 /* TAPageControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAPageControlTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000004 /* UIViewValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewValidatorTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000005 /* ControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000006 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		F10000000000000000000007 /* ItemsAndCategoryListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAndCategoryListTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +442,13 @@
 				E1000000000000000000000B /* AccountViewModelTests.swift */,
 				E1000000000000000000000C /* CategoryItemsViewModelTests.swift */,
 				E1000000000000000000000D /* ThankYouViewModelTests.swift */,
+				F10000000000000000000001 /* ValidationTests.swift */,
+				F10000000000000000000002 /* AJWValidatorTests.swift */,
+				F10000000000000000000003 /* TAPageControlTests.swift */,
+				F10000000000000000000004 /* UIViewValidatorTests.swift */,
+				F10000000000000000000005 /* ControllerTests.swift */,
+				F10000000000000000000006 /* AppDelegateTests.swift */,
+				F10000000000000000000007 /* ItemsAndCategoryListTests.swift */,
 				0D8117B12190BA8B009C7DD1 /* Info.plist */,
 			);
 			path = "E-Commerce App Project (Tabbed)Tests";
@@ -685,6 +706,13 @@
 				E2000000000000000000000B /* AccountViewModelTests.swift in Sources */,
 				E2000000000000000000000C /* CategoryItemsViewModelTests.swift in Sources */,
 				E2000000000000000000000D /* ThankYouViewModelTests.swift in Sources */,
+				F20000000000000000000001 /* ValidationTests.swift in Sources */,
+				F20000000000000000000002 /* AJWValidatorTests.swift in Sources */,
+				F20000000000000000000003 /* TAPageControlTests.swift in Sources */,
+				F20000000000000000000004 /* UIViewValidatorTests.swift in Sources */,
+				F20000000000000000000005 /* ControllerTests.swift in Sources */,
+				F20000000000000000000006 /* AppDelegateTests.swift in Sources */,
+				F20000000000000000000007 /* ItemsAndCategoryListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
