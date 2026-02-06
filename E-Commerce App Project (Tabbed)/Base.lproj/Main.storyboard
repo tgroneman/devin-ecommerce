@@ -13,7 +13,7 @@
         <!--Sale View Controller-->
         <scene sceneID="1Ei-e8-1X5">
             <objects>
-                <viewController id="lSs-OO-Qcd" customClass="SaleViewController" sceneMemberID="viewController">
+                <viewController id="lSs-OO-Qcd" customClass="SaleViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cEb-KN-gLW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,7 +154,7 @@
         <!--Home View Controller-->
         <scene sceneID="3vy-mV-Yya">
             <objects>
-                <viewController id="3wD-b1-xDC" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController id="3wD-b1-xDC" customClass="HomeViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wHr-pg-pv3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="2200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -734,7 +734,7 @@
         <!--Cetegory View Controller-->
         <scene sceneID="KNc-cU-Vr2">
             <objects>
-                <viewController storyboardIdentifier="categoryItemViewStoryBoardIdentifier" title="Cetegory View Controller" id="nXE-Gg-Bld" customClass="CategoryItemsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="categoryItemViewStoryBoardIdentifier" title="Cetegory View Controller" id="nXE-Gg-Bld" customClass="CategoryItemsViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Joz-7Z-6VS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -861,7 +861,7 @@
         <!--Single Item View Controller-->
         <scene sceneID="8Pe-yR-hlb">
             <objects>
-                <viewController storyboardIdentifier="singleItemViewStoryBoardIdentifier" id="njc-3Z-V4M" customClass="SingleItemViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="singleItemViewStoryBoardIdentifier" id="njc-3Z-V4M" customClass="SingleItemViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fOj-la-Cur">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1093,7 +1093,7 @@
         <!--Cart-->
         <scene sceneID="qGC-Q9-GBR">
             <objects>
-                <viewController id="nSn-Jy-OVK" customClass="CartViewController" sceneMemberID="viewController">
+                <viewController id="nSn-Jy-OVK" customClass="CartViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="upu-po-she">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1256,7 +1256,7 @@
         <!--Checkout-->
         <scene sceneID="Zk6-gl-Ofd">
             <objects>
-                <viewController title="Checkout" id="oW1-gx-3p5" customClass="CheckOutViewController" sceneMemberID="viewController">
+                <viewController title="Checkout" id="oW1-gx-3p5" customClass="CheckOutViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ohh-YF-jcN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1671,7 +1671,7 @@
         <!--Thank You View Controller-->
         <scene sceneID="cC2-zl-K7d">
             <objects>
-                <viewController id="VlQ-8w-bBj" customClass="ThankYouViewController" sceneMemberID="viewController">
+                <viewController id="VlQ-8w-bBj" customClass="ThankYouViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="es8-Kq-SVh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1808,7 +1808,7 @@
         <!--Invoice-->
         <scene sceneID="RQz-lX-SJ5">
             <objects>
-                <viewController id="xgz-gb-kz8" customClass="ThankYouViewController" sceneMemberID="viewController">
+                <viewController id="xgz-gb-kz8" customClass="ThankYouViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M5p-05-YLN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1873,7 +1873,7 @@
         <!--Account View Controller-->
         <scene sceneID="R7o-cF-7M1">
             <objects>
-                <viewController id="eVM-DO-AAw" customClass="AccountViewController" sceneMemberID="viewController">
+                <viewController id="eVM-DO-AAw" customClass="AccountViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GUl-6G-ZAp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2287,7 +2287,7 @@
         <!--Registration Form-->
         <scene sceneID="4hJ-3R-Sur">
             <objects>
-                <viewController title="Registration Form" id="OyS-Rb-3w0" customClass="AccountCRUDViewController" sceneMemberID="viewController">
+                <viewController title="Registration Form" id="OyS-Rb-3w0" customClass="AccountCRUDViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wny-Xg-EZq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2592,7 +2592,7 @@
         <!--Log In-->
         <scene sceneID="Vqt-CP-3sx">
             <objects>
-                <viewController title="Log In" id="HOH-fx-3l5" customClass="AccountLoginViewController" sceneMemberID="viewController">
+                <viewController title="Log In" id="HOH-fx-3l5" customClass="AccountLoginViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xDd-PI-mCI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2744,7 +2744,7 @@
         <!--Edit Account-->
         <scene sceneID="j9I-E5-ftH">
             <objects>
-                <viewController title="Edit Account" id="9fx-gF-57Q" customClass="AccountCRUDViewController" sceneMemberID="viewController">
+                <viewController title="Edit Account" id="9fx-gF-57Q" customClass="AccountCRUDViewController" customModule="E_Commerce_App_Project__Tabbed_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Sr-bx-VAb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
