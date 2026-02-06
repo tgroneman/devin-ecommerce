@@ -27,7 +27,7 @@ class SingleItemViewModelTests: XCTestCase {
         item.itemCategory = "Television"
         item.brand = "Samsung"
         item.quality = "HD"
-        item.photoURL = "https://example.com/photo.jpg"
+        item.photoURL = ""
         item.cartAddedQuantity = 0
         return item
     }

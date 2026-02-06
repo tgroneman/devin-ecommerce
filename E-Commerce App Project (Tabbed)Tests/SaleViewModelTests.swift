@@ -21,7 +21,7 @@ class SaleViewModelTests: XCTestCase {
 
     func testLoadSaleItems() {
         viewModel.loadSaleItems()
-        XCTAssertTrue(viewModel.saleItemsList is [Item])
+        XCTAssertNotNil(viewModel.saleItemsList)
     }
 
     func testNumberOfSaleItemsBeforeLoad() {
@@ -45,7 +45,6 @@ class SaleViewModelTests: XCTestCase {
         if viewModel.numberOfSaleItems > 0 {
             let item = viewModel.item(at: 0)
             XCTAssertNotNil(item)
-            XCTAssertTrue(item is Item)
         }
     }
 

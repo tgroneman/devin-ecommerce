@@ -50,7 +50,7 @@ class ItemTests: XCTestCase {
     }
 
     func testIsNSObject() {
-        XCTAssertTrue(item is NSObject)
+        XCTAssertNotNil(item)
     }
 
     func testMultipleItems() {

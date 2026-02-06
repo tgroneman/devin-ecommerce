@@ -29,11 +29,11 @@ class HomeViewModelTests: XCTestCase {
 
     func testLoadCategories() {
         viewModel.loadCategories()
-        XCTAssertTrue(viewModel.tvCategory is [Item])
-        XCTAssertTrue(viewModel.laptopCategoryItemsList is [Item])
-        XCTAssertTrue(viewModel.mobileCategoryItemsList is [Item])
-        XCTAssertTrue(viewModel.desktopCategoryItemsList is [Item])
-        XCTAssertTrue(viewModel.tabletCategoryItemsList is [Item])
+        XCTAssertNotNil(viewModel.tvCategory)
+        XCTAssertNotNil(viewModel.laptopCategoryItemsList)
+        XCTAssertNotNil(viewModel.mobileCategoryItemsList)
+        XCTAssertNotNil(viewModel.desktopCategoryItemsList)
+        XCTAssertNotNil(viewModel.tabletCategoryItemsList)
     }
 
     func testNumberOfItemsForTag0() {

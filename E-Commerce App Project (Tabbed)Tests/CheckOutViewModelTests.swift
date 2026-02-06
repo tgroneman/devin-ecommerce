@@ -231,7 +231,7 @@ class CheckOutViewModelTests: XCTestCase {
 
     func testGetHTMLString() {
         let htmlString = viewModel.getHTMLString()
-        XCTAssertTrue(htmlString is String)
+        XCTAssertNotNil(htmlString)
     }
 
     func testInitialPaymentState() {

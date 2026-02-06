@@ -18,13 +18,11 @@ class AccountLoginViewModelTests: XCTestCase {
     func testValidationHelper() {
         let helper = viewModel.validationHelper
         XCTAssertNotNil(helper)
-        XCTAssertTrue(helper is Validation)
     }
 
     func testAccountOps() {
         let ops = viewModel.accountOps
         XCTAssertNotNil(ops)
-        XCTAssertTrue(ops is AccountOperations)
     }
 
     func testValidateEmailValid() {

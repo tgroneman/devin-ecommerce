@@ -147,7 +147,7 @@ class ShoppingCartTests: XCTestCase {
 
     func testItemsInCartReturnsArray() {
         let items = cart.itemsInCart()
-        XCTAssertTrue(items is [Item])
+        XCTAssertNotNil(items)
     }
 
     func testAddItemThenRemoveFromCart() {

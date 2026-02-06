@@ -21,7 +21,6 @@ class AccountCRUDViewModelTests: XCTestCase {
 
     func testValidationHelper() {
         XCTAssertNotNil(viewModel.validationHelper)
-        XCTAssertTrue(viewModel.validationHelper is Validation)
     }
 
     func testIsUserLoggedInFalse() {
@@ -83,7 +82,6 @@ class AccountCRUDViewModelTests: XCTestCase {
 
     func testAccountOps() {
         XCTAssertNotNil(viewModel.accountOps)
-        XCTAssertTrue(viewModel.accountOps is AccountOperations)
     }
 
     func testEncryptPassword() {

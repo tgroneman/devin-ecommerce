@@ -14,38 +14,34 @@ class E_Commerce_App_Project__Tabbed_Tests: XCTestCase {
     func testItemsSharedInstance() {
         let instance = Items.sharedInstance
         XCTAssertNotNil(instance)
-        XCTAssertTrue(instance is Items)
     }
 
     func testCategoryItemListSharedInstance() {
         let instance = CategoryItemList.sharedInstance
         XCTAssertNotNil(instance)
-        XCTAssertTrue(instance is CategoryItemList)
     }
 
     func testShoppingCartSharedInstance() {
         let instance = ShoppingCart.sharedInstance
         XCTAssertNotNil(instance)
-        XCTAssertTrue(instance is ShoppingCart)
     }
 
     func testAccountOperationsSharedInstance() {
         let instance = AccountOperations.sharedInstance
         XCTAssertNotNil(instance)
-        XCTAssertTrue(instance is AccountOperations)
     }
 
     func testItemsAllItemsIsArray() {
         let items = Items.sharedInstance.allItems
-        XCTAssertTrue(items is [Item])
+        XCTAssertNotNil(items)
     }
 
     func testCategoryItemListHasCategories() {
         let catList = CategoryItemList.sharedInstance
-        XCTAssertTrue(catList.tvCategoryItemsList is [Item])
-        XCTAssertTrue(catList.laptopCategoryItemsList is [Item])
-        XCTAssertTrue(catList.mobileCategoryItemsList is [Item])
-        XCTAssertTrue(catList.desktopCategoryItemsList is [Item])
-        XCTAssertTrue(catList.tabletCategoryItemsList is [Item])
+        XCTAssertNotNil(catList.tvCategoryItemsList)
+        XCTAssertNotNil(catList.laptopCategoryItemsList)
+        XCTAssertNotNil(catList.mobileCategoryItemsList)
+        XCTAssertNotNil(catList.desktopCategoryItemsList)
+        XCTAssertNotNil(catList.tabletCategoryItemsList)
     }
 }
