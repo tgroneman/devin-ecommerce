@@ -2,33 +2,33 @@ import UIKit
 
 class AccountCRUDViewController: UIViewController {
 
-    @IBOutlet var firstName: UITextField!
-    @IBOutlet var lastName: UITextField!
-    @IBOutlet var email: UITextField!
-    @IBOutlet var password: UITextField!
-    @IBOutlet var confirmPassword: UITextField!
-    @IBOutlet var phone: UITextField!
-    @IBOutlet var country: UITextField!
-    @IBOutlet var state: UITextField!
-    @IBOutlet var city: UITextField!
-    @IBOutlet var postalCode: UITextField!
-    @IBOutlet var address: UITextField!
-    @IBOutlet var validationStatus: UILabel!
+    @IBOutlet var firstName: UITextField?
+    @IBOutlet var lastName: UITextField?
+    @IBOutlet var email: UITextField?
+    @IBOutlet var password: UITextField?
+    @IBOutlet var confirmPassword: UITextField?
+    @IBOutlet var phone: UITextField?
+    @IBOutlet var country: UITextField?
+    @IBOutlet var state: UITextField?
+    @IBOutlet var city: UITextField?
+    @IBOutlet var postalCode: UITextField?
+    @IBOutlet var address: UITextField?
+    @IBOutlet var validationStatus: UILabel?
 
     var userAlreadyRegistered: UIAlertController?
 
-    @IBOutlet var editAccountFirstName: UITextField!
-    @IBOutlet var editAccountLastName: UITextField!
-    @IBOutlet var editAccountEmail: UITextField!
-    @IBOutlet var editAccountPassword: UITextField!
-    @IBOutlet var editAccountConfirmPassword: UITextField!
-    @IBOutlet var editAccountPhone: UITextField!
-    @IBOutlet var editAccountCountry: UITextField!
-    @IBOutlet var editAccountState: UITextField!
-    @IBOutlet var editAccountCity: UITextField!
-    @IBOutlet var editAccountPostalCode: UITextField!
-    @IBOutlet var editAccountAddress: UITextField!
-    @IBOutlet var editAccountValidationStatus: UILabel!
+    @IBOutlet var editAccountFirstName: UITextField?
+    @IBOutlet var editAccountLastName: UITextField?
+    @IBOutlet var editAccountEmail: UITextField?
+    @IBOutlet var editAccountPassword: UITextField?
+    @IBOutlet var editAccountConfirmPassword: UITextField?
+    @IBOutlet var editAccountPhone: UITextField?
+    @IBOutlet var editAccountCountry: UITextField?
+    @IBOutlet var editAccountState: UITextField?
+    @IBOutlet var editAccountCity: UITextField?
+    @IBOutlet var editAccountPostalCode: UITextField?
+    @IBOutlet var editAccountAddress: UITextField?
+    @IBOutlet var editAccountValidationStatus: UILabel?
 
     var registrationComplete: UIAlertController!
 
@@ -39,53 +39,82 @@ class AccountCRUDViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        validationStatus.isHidden = true
+        validationStatus?.isHidden = true
+        editAccountValidationStatus?.isHidden = true
         accountOperationsObj = AccountOperations()
         validatorObj = Validation()
 
-        firstName.ajw_attachValidator(validatorObj.requiredMinLengthValidator("First Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "It has to be something at least!", withLabelForValidationRules: validationStatus))
-        editAccountFirstName.ajw_attachValidator(validatorObj.requiredMinLengthValidator("First Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "It has to be something at least!", withLabelForValidationRules: validationStatus))
+        if let f = firstName, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("First Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "It has to be something at least!", withLabelForValidationRules: vs))
+        }
+        if let f = editAccountFirstName, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("First Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "It has to be something at least!", withLabelForValidationRules: vs))
+        }
 
-        lastName.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Last Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "Last Name Please!", withLabelForValidationRules: validationStatus))
-        editAccountLastName.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Last Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "Last Name Please!", withLabelForValidationRules: validationStatus))
+        if let f = lastName, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Last Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "Last Name Please!", withLabelForValidationRules: vs))
+        }
+        if let f = editAccountLastName, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Last Name is Required!", integerForMinLength: 1, minLengthErrorMessage: "Last Name Please!", withLabelForValidationRules: vs))
+        }
 
-        phone.ajw_attachValidator(validatorObj.phoneValidator(validationStatus))
-        editAccountPhone.ajw_attachValidator(validatorObj.phoneValidator(validationStatus))
+        if let f = phone, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.phoneValidator(vs))
+        }
+        if let f = editAccountPhone, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.phoneValidator(vs))
+        }
 
-        email.ajw_attachValidator(validatorObj.emailValidator(validationStatus))
-        editAccountEmail.ajw_attachValidator(validatorObj.emailValidator(validationStatus))
+        if let f = email, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.emailValidator(vs))
+        }
+        if let f = editAccountEmail, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.emailValidator(vs))
+        }
 
-        password.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Password is required!", integerForMinLength: 6, minLengthErrorMessage: "It must be at least 6 charecters!", withLabelForValidationRules: validationStatus))
-        editAccountPassword.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Password is required!", integerForMinLength: 6, minLengthErrorMessage: "It must be at least 6 charecters!", withLabelForValidationRules: validationStatus))
+        if let f = password, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Password is required!", integerForMinLength: 6, minLengthErrorMessage: "It must be at least 6 charecters!", withLabelForValidationRules: vs))
+        }
+        if let f = editAccountPassword, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.requiredMinLengthValidator("Password is required!", integerForMinLength: 6, minLengthErrorMessage: "It must be at least 6 charecters!", withLabelForValidationRules: vs))
+        }
 
-        confirmPassword.ajw_attachValidator(validatorObj.requiredValidator("Required and Should be same as 'Password'", withLabelForValidationRules: validationStatus))
-        editAccountConfirmPassword.ajw_attachValidator(validatorObj.requiredValidator("Required and Should be same as 'Password'", withLabelForValidationRules: validationStatus))
+        if let f = confirmPassword, let vs = validationStatus {
+            f.ajw_attachValidator(validatorObj.requiredValidator("Required and Should be same as 'Password'", withLabelForValidationRules: vs))
+        }
+        if let f = editAccountConfirmPassword, let vs = validationStatus ?? editAccountValidationStatus {
+            f.ajw_attachValidator(validatorObj.requiredValidator("Required and Should be same as 'Password'", withLabelForValidationRules: vs))
+        }
 
-        country.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        state.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        city.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        postalCode.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        address.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        editAccountCountry.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        editAccountState.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        editAccountCity.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        editAccountPostalCode.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
-        editAccountAddress.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: validationStatus))
+        if let vs = validationStatus {
+            country?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            state?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            city?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            postalCode?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            address?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+        }
+        if let vs = validationStatus ?? editAccountValidationStatus {
+            editAccountCountry?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            editAccountState?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            editAccountCity?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            editAccountPostalCode?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+            editAccountAddress?.ajw_attachValidator(validatorObj.requiredValidator("Required!", withLabelForValidationRules: vs))
+        }
 
         defaults = UserDefaults.standard
         if !defaults.bool(forKey: "SeesionUserLoggedIN") {
             print("user not logged IN")
         } else {
             userData = defaults.dictionary(forKey: "LoggedInUsersDetail")
-            editAccountFirstName.text = userData?["firstName"] as? String
-            editAccountLastName.text = userData?["lastName"] as? String
-            editAccountEmail.text = userData?["usersEmail"] as? String
-            editAccountPhone.text = userData?["phone"] as? String
-            editAccountCountry.text = userData?["country"] as? String
-            editAccountState.text = userData?["state"] as? String
-            editAccountCity.text = userData?["city"] as? String
-            editAccountPostalCode.text = userData?["postalCode"] as? String
-            editAccountAddress.text = userData?["address"] as? String
+            editAccountFirstName?.text = userData?["firstName"] as? String
+            editAccountLastName?.text = userData?["lastName"] as? String
+            editAccountEmail?.text = userData?["usersEmail"] as? String
+            editAccountPhone?.text = userData?["phone"] as? String
+            editAccountCountry?.text = userData?["country"] as? String
+            editAccountState?.text = userData?["state"] as? String
+            editAccountCity?.text = userData?["city"] as? String
+            editAccountPostalCode?.text = userData?["postalCode"] as? String
+            editAccountAddress?.text = userData?["address"] as? String
         }
 
         registrationComplete = UIAlertController(
@@ -100,23 +129,23 @@ class AccountCRUDViewController: UIViewController {
     }
 
     func registrationAction(_ sender: UIButton) {
-        let encryptedPassword = accountOperationsObj.sha1(password.text ?? "")
-        let encryptedConfirmedPassword = accountOperationsObj.sha1(confirmPassword.text ?? "")
+        let encryptedPassword = accountOperationsObj.sha1(password?.text ?? "")
+        let encryptedConfirmedPassword = accountOperationsObj.sha1(confirmPassword?.text ?? "")
         let secureKeyForServerAccess = "sdfsdfsd38792F423F4528482B4D6250655368566D597133743677397A24432646294A40kjsdhfkjsdhf"
         let dataToSend: [String: Any] = [
             "secureKeyForServerAccess_Enabled": secureKeyForServerAccess,
             "actionRequest": "REGISTER_USER",
-            "firstName": firstName.text ?? "",
-            "lastName": lastName.text ?? "",
-            "email": email.text ?? "",
+            "firstName": firstName?.text ?? "",
+            "lastName": lastName?.text ?? "",
+            "email": email?.text ?? "",
             "password": encryptedPassword,
             "confirmPassword": encryptedConfirmedPassword,
-            "phone": phone.text ?? "",
-            "country": country.text ?? "",
-            "state": state.text ?? "",
-            "city": city.text ?? "",
-            "postalCode": postalCode.text ?? "",
-            "address": address.text ?? ""
+            "phone": phone?.text ?? "",
+            "country": country?.text ?? "",
+            "state": state?.text ?? "",
+            "city": city?.text ?? "",
+            "postalCode": postalCode?.text ?? "",
+            "address": address?.text ?? ""
         ]
         accountOperationsObj.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
             guard let self = self else { return }
@@ -136,9 +165,10 @@ class AccountCRUDViewController: UIViewController {
     }
 
     @IBAction func registerAccount(_ sender: UIButton) {
-        if firstName.hasText && lastName.hasText && email.hasText && password.hasText && confirmPassword.hasText && phone.hasText && country.hasText && state.hasText && city.hasText && postalCode.hasText && address.hasText {
-            if accountOperationsObj.validateEmailAccount(email.text ?? "") {
-                if password.text == confirmPassword.text {
+        guard let fn = firstName, let ln = lastName, let em = email, let pw = password, let cp = confirmPassword, let ph = phone, let co = country, let st = state, let ci = city, let pc = postalCode, let ad = address else { return }
+        if fn.hasText && ln.hasText && em.hasText && pw.hasText && cp.hasText && ph.hasText && co.hasText && st.hasText && ci.hasText && pc.hasText && ad.hasText {
+            if accountOperationsObj.validateEmailAccount(em.text ?? "") {
+                if pw.text == cp.text {
                     registrationAction(sender)
                 } else {
                     generalAlerts("Password Mismatch!", withMessage: "Confirm password and password Must be same", withYesActionTitle: "Log In!", withNoActionTitle: "Back To Form!")
@@ -152,23 +182,23 @@ class AccountCRUDViewController: UIViewController {
     }
 
     func editAction(_ sender: UIButton) {
-        let encryptedPassword = accountOperationsObj.sha1(editAccountPassword.text ?? "")
-        let encryptedConfirmedPassword = accountOperationsObj.sha1(editAccountConfirmPassword.text ?? "")
+        let encryptedPassword = accountOperationsObj.sha1(editAccountPassword?.text ?? "")
+        let encryptedConfirmedPassword = accountOperationsObj.sha1(editAccountConfirmPassword?.text ?? "")
         let secureKeyForServerAccess = "sdfsdfsd38792F423F4528482B4D6250655368566D597133743677397A24432646294A40kjsdhfkjsdhf"
         let dataToSend: [String: Any] = [
             "secureKeyForServerAccess_Enabled": secureKeyForServerAccess,
             "actionRequest": "EDIT_USER",
-            "firstName": editAccountFirstName.text ?? "",
-            "lastName": editAccountLastName.text ?? "",
+            "firstName": editAccountFirstName?.text ?? "",
+            "lastName": editAccountLastName?.text ?? "",
             "email": (userData?["usersEmail"] as? String) ?? "",
             "password": encryptedPassword,
             "confirmPassword": encryptedConfirmedPassword,
-            "phone": editAccountPhone.text ?? "",
-            "country": editAccountCity.text ?? "",
-            "state": editAccountState.text ?? "",
-            "city": editAccountCity.text ?? "",
-            "postalCode": editAccountPostalCode.text ?? "",
-            "address": editAccountAddress.text ?? ""
+            "phone": editAccountPhone?.text ?? "",
+            "country": editAccountCity?.text ?? "",
+            "state": editAccountState?.text ?? "",
+            "city": editAccountCity?.text ?? "",
+            "postalCode": editAccountPostalCode?.text ?? "",
+            "address": editAccountAddress?.text ?? ""
         ]
         accountOperationsObj.sendRequestToServer(dataToSend) { [weak self] error, success, customErrorMessage in
             guard let self = self else { return }
@@ -190,9 +220,10 @@ class AccountCRUDViewController: UIViewController {
     }
 
     @IBAction func editAccount(_ sender: UIButton) {
-        if editAccountFirstName.hasText && editAccountLastName.hasText && editAccountEmail.hasText && editAccountPassword.hasText && editAccountConfirmPassword.hasText && editAccountPhone.hasText && editAccountCountry.hasText && editAccountState.hasText && editAccountCity.hasText && editAccountPostalCode.hasText && editAccountAddress.hasText {
-            if accountOperationsObj.validateEmailAccount(editAccountEmail.text ?? "") {
-                if editAccountPassword.text == editAccountConfirmPassword.text {
+        guard let fn = editAccountFirstName, let ln = editAccountLastName, let em = editAccountEmail, let pw = editAccountPassword, let cp = editAccountConfirmPassword, let ph = editAccountPhone, let co = editAccountCountry, let st = editAccountState, let ci = editAccountCity, let pc = editAccountPostalCode, let ad = editAccountAddress else { return }
+        if fn.hasText && ln.hasText && em.hasText && pw.hasText && cp.hasText && ph.hasText && co.hasText && st.hasText && ci.hasText && pc.hasText && ad.hasText {
+            if accountOperationsObj.validateEmailAccount(em.text ?? "") {
+                if pw.text == cp.text {
                     editAction(sender)
                 } else {
                     generalAlerts("Password Mismatch!", withMessage: "Confirm password and password Must be same", withYesActionTitle: "Cancel Updating!", withNoActionTitle: "Back To Form!")

@@ -24,7 +24,11 @@ class Items: NSObject {
             itemObject.sale = itemDictionary["Sale"] as? NSNumber ?? 0
             itemObject.itemName = itemDictionary["ProductName"] as? String ?? ""
             itemObject.photoURL = itemDictionary["URL"] as? String ?? ""
-            itemObject.price = (itemDictionary["Price"] as? NSNumber)?.doubleValue ?? 0
+            if let priceNumber = itemDictionary["Price"] as? NSNumber {
+                itemObject.price = priceNumber.doubleValue
+            } else if let priceString = itemDictionary["Price"] as? String, let priceValue = Double(priceString) {
+                itemObject.price = priceValue
+            }
             itemObject.itemCategory = itemDictionary["ProductType"] as? String ?? ""
             itemObject.brand = itemDictionary["BrandName"] as? String ?? ""
             itemObject.quality = itemDictionary["Quality"] as? String ?? ""

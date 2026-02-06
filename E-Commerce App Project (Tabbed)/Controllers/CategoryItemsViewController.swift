@@ -3,7 +3,7 @@ import UIKit
 class CategoryItemsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     var categoryItemsList: [Item] = []
-    @IBOutlet var categoryName: UILabel!
+    @IBOutlet var categoryName: UILabel?
     @IBOutlet var categoryCollectionView: UICollectionView!
     var receivedCategoryItemsList: [Item] = []
     var receivedCategoryName: String = ""
@@ -13,7 +13,7 @@ class CategoryItemsViewController: UIViewController, UICollectionViewDataSource,
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryItemsList = receivedCategoryItemsList
-        categoryName.text = receivedCategoryName
+        categoryName?.text = receivedCategoryName
         navigationItem.title = receivedCategoryName
     }
 
