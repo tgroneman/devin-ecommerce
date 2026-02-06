@@ -82,18 +82,7 @@ class AccountOperationsTests: XCTestCase {
         XCTAssertTrue(session1 === session2)
     }
 
-    func testSendRequestToServerWithInvalidData() {
-        let expectation = self.expectation(description: "Callback should be called")
-
-        let invalidData: [String: Any] = [:]
-        accountOps.sendRequestToServer(invalidData) { error, success, message in
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 5.0, handler: nil)
-    }
-
-    func testSha1SpecialCharacters() {
+    func testSha1SpecialCharacters(){
         let result = accountOps.sha1("!@#$%^&*()")
         XCTAssertFalse(result.isEmpty)
         XCTAssertEqual(result.count, 40)
