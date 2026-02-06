@@ -208,7 +208,18 @@
 		0D49CDA1219C20FE00890606 /* AJWValidator */ = {
 			isa = PBXGroup;
 			children = (
-																																																	);
+				D10000000000000000000011 /* AJWValidator.swift */,
+				D10000000000000000000012 /* AJWStringValidator.swift */,
+				D10000000000000000000013 /* AJWNumericValidator.swift */,
+				D10000000000000000000014 /* AJWValidatorRule.swift */,
+				D10000000000000000000015 /* AJWValidatorRequiredRule.swift */,
+				D10000000000000000000016 /* AJWValidatorRangeRule.swift */,
+				D10000000000000000000017 /* AJWValidatorRegularExpressionRule.swift */,
+				D10000000000000000000018 /* AJWValidatorEqualRule.swift */,
+				D10000000000000000000019 /* AJWValidatorCustomRule.swift */,
+				D1000000000000000000001A /* AJWValidatorRemoteRule.swift */,
+				D1000000000000000000001B /* UIView+AJWValidator.swift */,
+			);
 			path = AJWValidator;
 			sourceTree = "<group>";
 		};
@@ -241,7 +252,11 @@
 		0D66BD3321A2EDC9006D2488 /* TAPageControl */ = {
 			isa = PBXGroup;
 			children = (
-																					);
+				D1000000000000000000001C /* TAPageControl.swift */,
+				D1000000000000000000001D /* TAAbstractDotView.swift */,
+				D1000000000000000000001E /* TAAnimatedDotView.swift */,
+				D1000000000000000000001F /* TADotView.swift */,
+			);
 			path = TAPageControl;
 			sourceTree = "<group>";
 		};
@@ -265,14 +280,30 @@
 		0D76BAD72193253B00783E47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-																																											);
+				D10000000000000000000007 /* HomeViewController.swift */,
+				D10000000000000000000008 /* SaleViewController.swift */,
+				D10000000000000000000009 /* CartViewController.swift */,
+				D1000000000000000000000A /* AccountViewController.swift */,
+				D1000000000000000000000B /* AccountCRUDViewController.swift */,
+				D1000000000000000000000C /* AccountLoginViewController.swift */,
+				D1000000000000000000000D /* CheckOutViewController.swift */,
+				D1000000000000000000000E /* SingleItemViewController.swift */,
+				D1000000000000000000000F /* CategoryItemsViewController.swift */,
+				D10000000000000000000010 /* ThankYouViewController.swift */,
+			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
 		0D7F8348219226890026FDEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-																											);
+				D10000000000000000000001 /* Item.swift */,
+				D10000000000000000000002 /* Items.swift */,
+				D10000000000000000000003 /* CategoryItemList.swift */,
+				D10000000000000000000004 /* ShoppingCart.swift */,
+				D10000000000000000000005 /* AccountOperations.swift */,
+				D10000000000000000000006 /* Validation.swift */,
+			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -306,18 +337,21 @@
 				0D7F8348219226890026FDEE /* Classes */,
 				0D7F8343219224360026FDEE /* data.json */,
 				0D8117C82190BBF4009C7DD1 /* Images */,
-												0D81179C2190BA89009C7DD1 /* Main.storyboard */,
+				D10000000000000000000020 /* AppDelegate.swift */,
+				D10000000000000000000021 /* ViewController.swift */,
+				0D81179C2190BA89009C7DD1 /* Main.storyboard */,
 				0D81179F2190BA8B009C7DD1 /* Assets.xcassets */,
 				0D8117A12190BA8B009C7DD1 /* LaunchScreen.storyboard */,
 				0D8117A42190BA8B009C7DD1 /* Info.plist */,
-					);
+			);
 			path = "E-Commerce App Project (Tabbed)";
 			sourceTree = "<group>";
 		};
 		0D8117AE2190BA8B009C7DD1 /* E-Commerce App Project (Tabbed)Tests */ = {
 			isa = PBXGroup;
 			children = (
-						0D8117B12190BA8B009C7DD1 /* Info.plist */,
+				D10000000000000000000022 /* E_Commerce_App_Project__Tabbed_Tests.swift */,
+				0D8117B12190BA8B009C7DD1 /* Info.plist */,
 			);
 			path = "E-Commerce App Project (Tabbed)Tests";
 			sourceTree = "<group>";
@@ -325,7 +359,8 @@
 		0D8117B92190BA8B009C7DD1 /* E-Commerce App Project (Tabbed)UITests */ = {
 			isa = PBXGroup;
 			children = (
-						0D8117BC2190BA8B009C7DD1 /* Info.plist */,
+				D10000000000000000000023 /* E_Commerce_App_Project__Tabbed_UITests.swift */,
+				0D8117BC2190BA8B009C7DD1 /* Info.plist */,
 			);
 			path = "E-Commerce App Project (Tabbed)UITests";
 			sourceTree = "<group>";
@@ -509,21 +544,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-																																																																							);
+				D20000000000000000000001 /* Item.swift in Sources */,
+				D20000000000000000000002 /* Items.swift in Sources */,
+				D20000000000000000000003 /* CategoryItemList.swift in Sources */,
+				D20000000000000000000004 /* ShoppingCart.swift in Sources */,
+				D20000000000000000000005 /* AccountOperations.swift in Sources */,
+				D20000000000000000000006 /* Validation.swift in Sources */,
+				D20000000000000000000007 /* HomeViewController.swift in Sources */,
+				D20000000000000000000008 /* SaleViewController.swift in Sources */,
+				D20000000000000000000009 /* CartViewController.swift in Sources */,
+				D2000000000000000000000A /* AccountViewController.swift in Sources */,
+				D2000000000000000000000B /* AccountCRUDViewController.swift in Sources */,
+				D2000000000000000000000C /* AccountLoginViewController.swift in Sources */,
+				D2000000000000000000000D /* CheckOutViewController.swift in Sources */,
+				D2000000000000000000000E /* SingleItemViewController.swift in Sources */,
+				D2000000000000000000000F /* CategoryItemsViewController.swift in Sources */,
+				D20000000000000000000010 /* ThankYouViewController.swift in Sources */,
+				D20000000000000000000011 /* AJWValidator.swift in Sources */,
+				D20000000000000000000012 /* AJWStringValidator.swift in Sources */,
+				D20000000000000000000013 /* AJWNumericValidator.swift in Sources */,
+				D20000000000000000000014 /* AJWValidatorRule.swift in Sources */,
+				D20000000000000000000015 /* AJWValidatorRequiredRule.swift in Sources */,
+				D20000000000000000000016 /* AJWValidatorRangeRule.swift in Sources */,
+				D20000000000000000000017 /* AJWValidatorRegularExpressionRule.swift in Sources */,
+				D20000000000000000000018 /* AJWValidatorEqualRule.swift in Sources */,
+				D20000000000000000000019 /* AJWValidatorCustomRule.swift in Sources */,
+				D2000000000000000000001A /* AJWValidatorRemoteRule.swift in Sources */,
+				D2000000000000000000001B /* UIView+AJWValidator.swift in Sources */,
+				D2000000000000000000001C /* TAPageControl.swift in Sources */,
+				D2000000000000000000001D /* TAAbstractDotView.swift in Sources */,
+				D2000000000000000000001E /* TAAnimatedDotView.swift in Sources */,
+				D2000000000000000000001F /* TADotView.swift in Sources */,
+				D20000000000000000000020 /* AppDelegate.swift in Sources */,
+				D20000000000000000000021 /* ViewController.swift in Sources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0D8117A72190BA8B009C7DD1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-					);
+				D20000000000000000000022 /* E_Commerce_App_Project__Tabbed_Tests.swift in Sources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0D8117B22190BA8B009C7DD1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-					);
+				D20000000000000000000023 /* E_Commerce_App_Project__Tabbed_UITests.swift in Sources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
