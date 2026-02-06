@@ -7,14 +7,14 @@ class ThankYouViewController: UIViewController, WKUIDelegate {
     @IBOutlet var uiviewForArko: UIView?
     @IBOutlet var emailThankYouPage: UILabel?
 
+    private let viewModel = ThankYouViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let defaults = UserDefaults.standard
-        let PDFFilePath = defaults.value(forKey: "pdfFilePath") as? String ?? ""
-        emailThankYouPage?.text = defaults.value(forKey: "SessionLoggedInuserEmail") as? String
+        emailThankYouPage?.text = viewModel.userEmail
 
-        let pdfUrl = URL(fileURLWithPath: PDFFilePath)
+        let pdfUrl = viewModel.pdfFileURL
         wkwebviewOutletForPDFShow?.loadFileURL(pdfUrl, allowingReadAccessTo: pdfUrl)
     }
 }

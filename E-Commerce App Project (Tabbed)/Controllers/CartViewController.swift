@@ -2,30 +2,16 @@ import UIKit
 
 class CartViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var checkoutCart: ShoppingCart!
+    private let viewModel = CartViewModel()
 
-    var itemImage: UIImageView?
-    var itemNameLabel: UILabel?
-    var itemPriceLabel: UILabel?
-    var itemQuantityLabel: UILabel?
-    var itemQuantityInText: String = ""
     @IBOutlet var totalAmountLabelOutlet: UILabel!
     @IBOutlet var totalAmountShowOutlet: UILabel!
-    var updatedSingleItemPriceText: String = ""
     @IBOutlet var cartTableView: UITableView!
-    var quantityStepper: UIStepper?
     @IBOutlet var editCartButtonOutlet: UIBarButtonItem!
     @IBOutlet var cartContinueButtonOutlet: UIBarButtonItem!
 
-    private var updatedSingleItemPrice: Double = 0
-    private var updatedSingleItemPriceDoubleValueToNumber: NSNumber = 0
-    private var stepperClickedValue: Double = 0
-    private var editClicked: Bool = false
-    private var intendedPath: IndexPath?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkoutCart = ShoppingCart.sharedInstance
         cartTableView.reloadData()
         updateCartUI()
     }
@@ -42,7 +28,7 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     private func updateCartUI() {
-        if checkoutCart.itemsInCart().isEmpty {
+        if viewModel.isCartEmpty {
             editCartButtonOutlet.isEnabled = false
             editCartButtonOutlet.tintColor = .clear
             cartContinueButtonOutlet.isEnabled = false
@@ -61,15 +47,14 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let itemObject = checkoutCart.itemsInCart()[indexPath.row]
-            intendedPath = indexPath
+            let itemObject = viewModel.item(at: indexPath.row)
             let cellIdentifier = tableView.dequeueReusableCell(withIdentifier: "cartTableViewCellIdentifier")!
 
-            itemImage = cellIdentifier.viewWithTag(701) as? UIImageView
-            itemNameLabel = cellIdentifier.viewWithTag(702) as? UILabel
-            itemPriceLabel = cellIdentifier.viewWithTag(703) as? UILabel
-            itemQuantityLabel = cellIdentifier.viewWithTag(704) as? UILabel
-            quantityStepper = cellIdentifier.viewWithTag(705) as? UIStepper
+            let itemImage = cellIdentifier.viewWithTag(701) as? UIImageView
+            let itemNameLabel = cellIdentifier.viewWithTag(702) as? UILabel
+            let itemPriceLabel = cellIdentifier.viewWithTag(703) as? UILabel
+            let itemQuantityLabel = cellIdentifier.viewWithTag(704) as? UILabel
+            let quantityStepper = cellIdentifier.viewWithTag(705) as? UIStepper
 
             if let url = URL(string: itemObject.photoURL), let data = try? Data(contentsOf: url) {
                 itemImage?.image = UIImage(data: data)
@@ -77,13 +62,9 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
             itemNameLabel?.text = itemObject.itemName
             quantityStepper?.value = itemObject.cartAddedQuantity
 
-            updatedSingleItemPrice = itemObject.cartAddedQuantity * itemObject.price
-            updatedSingleItemPriceDoubleValueToNumber = NSNumber(value: updatedSingleItemPrice)
-            itemPriceLabel?.text = showPrice(updatedSingleItemPriceDoubleValueToNumber)
-
-            itemQuantityInText = "\(NSNumber(value: itemObject.cartAddedQuantity))"
-            itemQuantityLabel?.text = itemQuantityInText
-            totalAmountShowOutlet.text = showPrice(checkoutCart.total())
+            itemPriceLabel?.text = viewModel.formattedItemPrice(at: indexPath.row)
+            itemQuantityLabel?.text = viewModel.formattedItemQuantity(at: indexPath.row)
+            totalAmountShowOutlet.text = viewModel.showPrice(viewModel.totalAmount())
 
             return cellIdentifier
         }
@@ -91,7 +72,7 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? checkoutCart.itemsInCart().count : 1
+        return section == 0 ? viewModel.numberOfCartItems : 1
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,31 +83,19 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let stepperValue = sender.value
         let buttonPosition = sender.convert(CGPoint.zero, to: cartTableView)
         if let rowIndexPath = cartTableView.indexPathForRow(at: buttonPosition) {
-            returnStepperValue(rowIndexPath, withStepperValue: stepperValue)
+            viewModel.updateQuantity(at: rowIndexPath.row, value: stepperValue)
+            cartTableView.reloadData()
         }
-    }
-
-    func returnStepperValue(_ indexPath: IndexPath, withStepperValue stepperValue: Double) {
-        let itemObject = checkoutCart.itemsInCart()[indexPath.row]
-        itemObject.cartAddedQuantity = stepperValue
-        cartTableView.reloadData()
     }
 
     @IBAction func editCartButton(_ sender: Any) {
-        if !editClicked {
-            cartTableView.setEditing(true, animated: true)
-            editClicked = true
-            cartTableView.reloadData()
-        } else {
-            cartTableView.setEditing(false, animated: true)
-            editClicked = false
-            cartTableView.reloadData()
-        }
+        viewModel.toggleEdit()
+        cartTableView.setEditing(viewModel.editClicked, animated: true)
+        cartTableView.reloadData()
     }
 
     @IBAction func CartContinueButton(_ sender: Any) {
-        let defaults = UserDefaults.standard
-        if !defaults.bool(forKey: "SeesionUserLoggedIN") {
+        if !viewModel.isUserLoggedIn {
             performSegue(withIdentifier: "cartToLogInSegue", sender: nil)
         } else {
             performSegue(withIdentifier: "checkOutSegue", sender: nil)
@@ -135,14 +104,9 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let itemObject = checkoutCart.itemsInCart()[indexPath.row]
-            checkoutCart.removeFromCart(itemObject)
-            totalAmountShowOutlet.text = "\(checkoutCart.total())"
+            viewModel.removeItem(at: indexPath.row)
+            totalAmountShowOutlet.text = viewModel.formattedTotal()
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-    }
-
-    func showPrice(_ price: NSNumber) -> String {
-        return "$\(price)"
     }
 }

@@ -2,7 +2,8 @@ import UIKit
 
 class SaleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var saleItemsList: [Item] = []
+    private let viewModel = SaleViewModel()
+
     @IBOutlet var saleCollectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -11,14 +12,9 @@ class SaleViewController: UIViewController, UICollectionViewDataSource, UICollec
         saleCollectionView.delegate = self
     }
 
-    func returnSaleArray(_ allItems: [Item]) -> [Item] {
-        return allItems.filter { $0.sale.intValue != 0 }
-    }
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let allItemsList = Items.sharedInstance.allItems
-        saleItemsList = returnSaleArray(allItemsList)
-        let individualData = saleItemsList[indexPath.row]
+        viewModel.loadSaleItems()
+        let individualData = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sellCellIdentifier", for: indexPath)
 
         let itemImage = cell.viewWithTag(601) as? UIImageView
@@ -29,21 +25,20 @@ class SaleViewController: UIViewController, UICollectionViewDataSource, UICollec
             itemImage?.image = UIImage(data: data)
         }
         itemNameLabel?.text = individualData.itemName
-        itemPriceLabel?.text = showPrice(individualData.price)
+        itemPriceLabel?.text = viewModel.formatPrice(individualData.price)
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let allItemsList = Items.sharedInstance.allItems
-        saleItemsList = returnSaleArray(allItemsList)
-        return saleItemsList.count
+        viewModel.loadSaleItems()
+        return viewModel.numberOfSaleItems
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let singleItemView = storyboard?.instantiateViewController(withIdentifier: "singleItemViewStoryBoardIdentifier") as? SingleItemViewController else { return }
 
-        let individualData = saleItemsList[indexPath.row]
+        let individualData = viewModel.item(at: indexPath.row)
         singleItemView.itemObjectReceived = individualData
         if let url = URL(string: individualData.photoURL) {
             singleItemView.setItemImageData = try? Data(contentsOf: url)
@@ -56,9 +51,5 @@ class SaleViewController: UIViewController, UICollectionViewDataSource, UICollec
         singleItemView.setItemQuality = individualData.quality
 
         navigationController?.pushViewController(singleItemView, animated: true)
-    }
-
-    func showPrice(_ price: Double) -> String {
-        return "$\(NSNumber(value: price))"
     }
 }

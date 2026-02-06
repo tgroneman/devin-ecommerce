@@ -74,6 +74,16 @@
 		D20000000000000000000021 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000021 /* ViewController.swift */; };
 		D20000000000000000000022 /* E_Commerce_App_Project__Tabbed_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000022 /* E_Commerce_App_Project__Tabbed_Tests.swift */; };
 		D20000000000000000000023 /* E_Commerce_App_Project__Tabbed_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000000000000000000023 /* E_Commerce_App_Project__Tabbed_UITests.swift */; };
+		D30000000000000000000001 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000001 /* HomeViewModel.swift */; };
+		D30000000000000000000002 /* SaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000002 /* SaleViewModel.swift */; };
+		D30000000000000000000003 /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000003 /* CartViewModel.swift */; };
+		D30000000000000000000004 /* CategoryItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000004 /* CategoryItemsViewModel.swift */; };
+		D30000000000000000000005 /* SingleItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000005 /* SingleItemViewModel.swift */; };
+		D30000000000000000000006 /* CheckOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000006 /* CheckOutViewModel.swift */; };
+		D30000000000000000000007 /* AccountLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000007 /* AccountLoginViewModel.swift */; };
+		D30000000000000000000008 /* AccountCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000008 /* AccountCRUDViewModel.swift */; };
+		D30000000000000000000009 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000009 /* AccountViewModel.swift */; };
+		D3000000000000000000000A /* ThankYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4000000000000000000000A /* ThankYouViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +177,16 @@
 		D10000000000000000000021 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D10000000000000000000022 /* E_Commerce_App_Project__Tabbed_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_Commerce_App_Project__Tabbed_Tests.swift; sourceTree = "<group>"; };
 		D10000000000000000000023 /* E_Commerce_App_Project__Tabbed_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = E_Commerce_App_Project__Tabbed_UITests.swift; sourceTree = "<group>"; };
+		D40000000000000000000001 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000002 /* SaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000003 /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000004 /* CategoryItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemsViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000005 /* SingleItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000006 /* CheckOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000007 /* AccountLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000008 /* AccountCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCRUDViewModel.swift; sourceTree = "<group>"; };
+		D40000000000000000000009 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		D4000000000000000000000A /* ThankYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +297,23 @@
 			path = sliderImages;
 			sourceTree = "<group>";
 		};
+		D50000000000000000000001 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D40000000000000000000001 /* HomeViewModel.swift */,
+				D40000000000000000000002 /* SaleViewModel.swift */,
+				D40000000000000000000003 /* CartViewModel.swift */,
+				D40000000000000000000004 /* CategoryItemsViewModel.swift */,
+				D40000000000000000000005 /* SingleItemViewModel.swift */,
+				D40000000000000000000006 /* CheckOutViewModel.swift */,
+				D40000000000000000000007 /* AccountLoginViewModel.swift */,
+				D40000000000000000000008 /* AccountCRUDViewModel.swift */,
+				D40000000000000000000009 /* AccountViewModel.swift */,
+				D4000000000000000000000A /* ThankYouViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		0D76BAD72193253B00783E47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +370,7 @@
 			children = (
 				0D49CDD6219F558000890606 /* Assets */,
 				0D49CDA0219C204E00890606 /* Supporting Libraries */,
+				D50000000000000000000001 /* ViewModels */,
 				0D76BAD72193253B00783E47 /* Controllers */,
 				0D7F8348219226890026FDEE /* Classes */,
 				0D7F8343219224360026FDEE /* data.json */,
@@ -577,10 +615,20 @@
 				D2000000000000000000001F /* TADotView.swift in Sources */,
 				D20000000000000000000020 /* AppDelegate.swift in Sources */,
 				D20000000000000000000021 /* ViewController.swift in Sources */,
+				D30000000000000000000001 /* HomeViewModel.swift in Sources */,
+				D30000000000000000000002 /* SaleViewModel.swift in Sources */,
+				D30000000000000000000003 /* CartViewModel.swift in Sources */,
+				D30000000000000000000004 /* CategoryItemsViewModel.swift in Sources */,
+				D30000000000000000000005 /* SingleItemViewModel.swift in Sources */,
+				D30000000000000000000006 /* CheckOutViewModel.swift in Sources */,
+				D30000000000000000000007 /* AccountLoginViewModel.swift in Sources */,
+				D30000000000000000000008 /* AccountCRUDViewModel.swift in Sources */,
+				D30000000000000000000009 /* AccountViewModel.swift in Sources */,
+				D3000000000000000000000A /* ThankYouViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D8117A72190BA8B009C7DD1 /* Sources */ = {
+		0D8117A72190BA8B009C7DD1 /* Sources */= {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
