@@ -12,7 +12,7 @@ class AJWStringValidator: AJWValidator {
     }
 
     override func addValidationToEnsureMinimumLength(_ minLength: Int, invalidMessage message: String) {
-        let rule = AJWValidatorRangeRule(type: .stringRange, invalidMessage: message, minimum: NSNumber(value: minLength), maximum: NSNumber(value: UInt.max))
+        let rule = AJWValidatorRangeRule(type: .stringRange, invalidMessage: message, minimum: NSNumber(value: minLength), maximum: NSNumber(value: Int.max))
         addValidationRule(rule)
     }
 

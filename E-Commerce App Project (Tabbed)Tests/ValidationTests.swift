@@ -28,7 +28,8 @@ class ValidationTests: XCTestCase {
     func testRequiredMinLengthValidatorValid() {
         let validator = validation.requiredMinLengthValidator("Required!", integerForMinLength: 3, minLengthErrorMessage: "Too short!", withLabelForValidationRules: label)
         validator.validate("hello")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
+        XCTAssertTrue(validator.isValid())
     }
 
     func testRequiredMinLengthValidatorTooShort() {
@@ -47,7 +48,7 @@ class ValidationTests: XCTestCase {
     func testRequiredMinLengthValidatorExactLength() {
         let validator = validation.requiredMinLengthValidator("Required!", integerForMinLength: 3, minLengthErrorMessage: "Too short!", withLabelForValidationRules: label)
         validator.validate("abc")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
     }
 
     func testEqualityValidatorCreation() {
@@ -142,7 +143,7 @@ class ValidationTests: XCTestCase {
     func testMinLengthValidatorValid() {
         let validator = validation.minLengthValidator("Too short!", withLabelForValidationRules: label)
         validator.validate("abcdef")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
     }
 
     func testMinLengthValidatorTooShort() {
@@ -154,7 +155,7 @@ class ValidationTests: XCTestCase {
     func testMinLengthValidatorExactLength() {
         let validator = validation.minLengthValidator("Too short!", withLabelForValidationRules: label)
         validator.validate("abcdef")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
     }
 
     func testValidStateUpdatesLabel() {
@@ -193,10 +194,10 @@ class ValidationTests: XCTestCase {
         validator.validate("ab")
         XCTAssertEqual(validator.state, .invalid)
         validator.validate("abcdef")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
     }
 
-    func testErrorMessagesOnInvalid() {
+    func testErrorMessagesOnInvalid(){
         let validator = validation.requiredValidator("Required!", withLabelForValidationRules: label)
         validator.validate("")
         XCTAssertFalse(validator.errorMessages.isEmpty)

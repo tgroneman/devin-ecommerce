@@ -66,7 +66,7 @@ class AJWValidatorTests: XCTestCase {
         validator.validate("hi")
         XCTAssertEqual(validator.state, .invalid)
         validator.validate("hello")
-        XCTAssertNotNil(validator.state)
+        XCTAssertEqual(validator.state, .valid)
     }
 
     func testStringValidatorMaxLength() {
