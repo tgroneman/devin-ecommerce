@@ -19,7 +19,7 @@ typealias AJWValidatorStateChangeHandler = (AJWValidatorState) -> Void
     @objc optional func validator(_ validator: AJWValidator, remoteValidationAtURL url: URL, failedWithError error: Error)
 }
 
-let AJWValidatorRegularExpressionPatternEmail = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-+]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z\u{200C}\u{200B}{2,6})$"
+let AJWValidatorRegularExpressionPatternEmail = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-+]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,6})$"
 let AJWValidatorRegularExpressionPatternContainsNumber = ".*\\d.*"
 
 class AJWValidator: NSObject {

@@ -5,7 +5,7 @@ class TAAnimatedDotView: TAAbstractDotView {
     private let kAnimateDuration: TimeInterval = 1
     private let dotColor = UIColor(white: 0.2, alpha: 1)
 
-    override init(frame: CGRect) {
+    required init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }

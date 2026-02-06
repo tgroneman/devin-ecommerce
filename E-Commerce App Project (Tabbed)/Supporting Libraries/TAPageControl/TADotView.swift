@@ -6,7 +6,7 @@ class TADotView: TAAbstractDotView {
     private let activeColor = UIColor(white: 0.2, alpha: 1)
     private let inactiveColor = UIColor(white: 0.2, alpha: 0.3)
 
-    override init(frame: CGRect) {
+    required init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
